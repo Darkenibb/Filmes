@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StreamFlix — Seu Site de Streaming</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#E50914',
+                        dark: '#0F0F0F',
+                        darkGray: '#1F1F1F',
+                        lightGray: '#2F2F2F',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Helvetica Neue', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .scrollbar-hide {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+            .carousel-item {
+                transition: transform 0.3s ease, z-index 0s;
+            }
+            .carousel-item:hover {
+                transform: scale(1.08);
+                z-index: 10;
+            }
+            .gradient-overlay {
+                background: linear-gradient(to top, #0F0F0F 0%, transparent 60%);
+            }
+        }
+    </style>
+</head>
+<body class="bg-dark text-white font-sans antialiased">
+    <!-- Navegação -->
+    <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-4 px-6 md:px-12">
+        <div class="flex items-center justify-between">
+            <h1 class="text-[clamp(1.5rem,3vw,2.2rem)] font-bold text-primary">StreamFlix</h1>
+            
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#" class="font-medium hover:text-gray-300 transition-colors">Início</a>
+                <a href="#" class="font-medium hover:text-gray-300 transition-colors">Séries</a>
+                <a href="#" class="font-medium hover:text-gray-300 transition-colors">Filmes</a>
+                <a href="#" class="font-medium hover:text-gray-300 transition-colors">Novos</a>
+                <a href="#" class="font-medium hover:text-gray-300 transition-colors">Minha Lista</a>
+            </nav>
+
+            <div class="flex items-center gap-5">
+                <button class="text-xl hover:text-gray-300"><i class="fa fa-search"></i></button>
+                <button class="text-xl hover:text-gray-300"><i class="fa fa-bell"></i></button>
+                <div class="w-8 h-8 rounded-full bg-primary/80 flex items-center justify-center cursor-pointer">
+                    <i class="fa fa-user"></i>
+                </div>
+                <button class="md:hidden text-2xl"><i class="fa fa-bars"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Destaque Principal -->
+    <section class="relative h-[85vh] flex items-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://picsum.photos/id/1019/1920/1080" alt="Destaque" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/50"></div>
+            <div class="gradient-overlay absolute bottom-0 left-0 w-full h-2/3"></div>
+        </div>
+
+        <div class="relative z-10 px-6 md:px-12 max-w-2xl space-y-5">
+            <span class="inline-block bg-primary px-3 py-1 rounded text-sm font-semibold">EM ALTA</span>
+            <h2 class="text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight">A Jornada do Futuro</h2>
+            <p class="text-lg text-gray-200">Uma aventura épica que atravessa galáxias em busca de um novo lar. Em um universo onde a coragem é a única esperança.</p>
+            <div class="flex gap-4 pt-2">
+                <button class="bg-white text-dark px-8 py-3 rounded font-bold flex items-center gap-2 hover:bg-gray-200 transition-colors">
+                    <i class="fa fa-play"></i> Assistir
+                </button>
+                <button class="bg-gray-600/70 px-6 py-3 rounded font-bold flex items-center gap-2 hover:bg-gray-600 transition-colors">
+                    <i class="fa fa-info-circle"></i> Mais Info
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categorias / Carrosséis -->
+    <main class="px-6 md:px-12 pb-20 space-y-12 -mt-20 relative z-10">
+        <!-- Em Alta -->
+        <section>
+            <h3 class="text-xl font-semibold mb-4">🔥 Em Alta</h3>
+            <div class="relative group">
+                <div class="flex gap-3 overflow-x-auto scrollbar-hide pb-4" id="trending">
+                    <!-- Os itens serão gerados via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Filmes de Ação -->
+        <section>
+            <h3 class="text-xl font-semibold mb-4">💥 Filmes de Ação</h3>
+            <div class="flex gap-3 overflow-x-auto scrollbar-hide pb-4" id="action">
+            </div>
+        </section>
+
+        <!-- Séries -->
+        <section>
+            <h3 class="text-xl font-semibold mb-4">📺 Séries Recomendadas</h3>
+            <div class="flex gap-3 overflow-x-auto scrollbar-hide pb-4" id="series">
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="px-6 md:px-12 py-10 border-t border-gray-800 text-gray-400 text-sm">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+            <div>
+                <h4 class="font-bold text-white mb-3">Sobre</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:underline">Quem Somos</a></li>
+                    <li><a href="#" class="hover:underline">Carreiras</a></li>
+                    <li><a href="#" class="hover:underline">Imprensa</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-white mb-3">Ajuda</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:underline">FAQ</a></li>
+                    <li><a href="#" class="hover:underline">Contato</a></li>
+                    <li><a href="#" class="hover:underline">Planos</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-white mb-3">Legal</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="hover:underline">Termos de Uso</a></li>
+                    <li><a href="#" class="hover:underline">Política de Privacidade</a></li>
+                    <li><a href="#" class="hover:underline">Cookies</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-white mb-3">Redes Sociais</h4>
+                <div class="flex gap-3 text-xl">
+                    <a href="#" class="hover:text-white"><i class="fa fa-facebook"></i></a>
+                    <a href="#" class="hover:text-white"><i class="fa fa-instagram"></i></a>
+                    <a href="#" class="hover:text-white"><i class="fa fa-twitter"></i></a>
+                    <a href="#" class="hover:text-white"><i class="fa fa-youtube-play"></i></a>
+                </div>
+            </div>
+        </div>
+        <p>© 2026 StreamFlix — Todos os direitos reservados.</p>
+    </footer>
+
+    <script>
+        // Efeito de transparência na barra de navegação ao rolar
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-dark/95', 'backdrop-blur-md', 'shadow-lg');
+            } else {
+                navbar.classList.remove('bg-dark/95', 'backdrop-blur-md', 'shadow-lg');
+            }
+        });
+
+        // Dados de exemplo
+        const movies = [
+            { id: 1, img: 'https://picsum.photos/id/1/300/450', title: 'Ação Total' },
+            { id: 2, img: 'https://picsum.photos/id/2/300/450', title: 'Mistério Antigo' },
+            { id: 3, img: 'https://picsum.photos/id/3/300/450', title: 'Futuro Distante' },
+            { id: 4, img: 'https://picsum.photos/id/4/300/450', title: 'Floresta Proibida' },
+            { id: 5, img: 'https://picsum.photos/id/5/300/450', title: 'Cidade de Aço' },
+            { id: 6, img: 'https://picsum.photos/id/6/300/450', title: 'Mar Sem Fim' },
+            { id: 7, img: 'https://picsum.photos/id/7/300/450', title: 'Guerra nas Estrelas' },
+            { id: 8, img: 'https://picsum.photos/id/8/300/450', title: 'Vida Oculta' },
+        ];
+
+        // Gerar itens do carrossel
+        function renderCarousel(containerId, items) {
+            const container = document.getElementById(containerId);
+            items.forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'carousel-item flex-shrink-0 w-36 md:w-44 rounded overflow-hidden cursor-pointer relative';
+                el.innerHTML = `
+                    <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover">
+                    <div class="absolute bottom-0 left-0 w-full p-2 bg-gradient-to-t from-black/90 to-transparent text-sm font-medium">
+                        ${item.title}
+                    </div>
+                `;
+                container.appendChild(el);
+            });
+        }
+
+        // Inicializar seções
+        renderCarousel('trending', movies);
+        renderCarousel('action', movies.slice(2, 8));
+        renderCarousel('series', [...movies].reverse());
+    </script>
+</body>
+</html>
