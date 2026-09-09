@@ -88,6 +88,8 @@
                 </button>
                 <button class="bg-gray-600/70 px-6 py-3 rounded font-bold flex items-center gap-2 hover:bg-gray-600 transition-colors">
                     <i class="fa fa-info-circle"></i> Mais Info
+
+                    
                 </button>
             </div>
         </div>
@@ -183,6 +185,14 @@
             { id: 8, img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-JP6ss51TGrkTzAbhS4VlWxtjn_Ma6ScBI1GW_9Q7SQ&s=10', title: 'Como treinar seu dragão 1' },
         ];
 
+        const seriesList = [
+            { id: 6, img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcyAkEE5RTRy8gDIhctJhU8JCfeRDbSDxBc_4BTM0jtI-TMXjkwmEQHK-1XWX9hSFFrGykZAqIIEnIZOE_clxPD6Hr62B1Pjr7nNSoKE6QNw&s=10', title: 'Supernatural' },
+            { id: 7, img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQczfLCt4fFO0sjqvZsqgZOPFDv3P_X1X6budNC5pq8Fg&s=10', title: 'Smallville: As Aventuras do Superboy' },
+            { id: 8, img: 'https://upload.wikimedia.org/wikipedia/pt/3/3b/The_Flash_Temporada_2_Poster.jpg?utm_source=pt.wikipedia.org&utm_campaign=index&utm_content=original', title: 'Flash' }
+];
+
+
+
         // Gerar itens do carrossel
         function renderCarousel(containerId, items) {
             const container = document.getElementById(containerId);
@@ -200,9 +210,9 @@
         }
 
         // Inicializar seções
-        renderCarousel('trending', movies);
+        renderCarousel('trending', movies, seriesList);
         renderCarousel('action', movies.slice(2, 8));
-        renderCarousel('series', [...movies].reverse());
+        renderCarousel('series', seriesList.reverse());
     </script>
 </body>
 </html>
